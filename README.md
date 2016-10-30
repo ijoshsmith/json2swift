@@ -21,7 +21,9 @@ Written and unit tested in Swift 3.
 - Clone the repository, or download the source code
 - Build the project
 - Open a Finder window to the executable file
+
 ![How to find the executable](/screenshots/show_in_finder.png)
+
 - Copy `json2swift` to your desktop
 - Open a Terminal window and run this command:
 ```
@@ -52,7 +54,7 @@ Alternatively, you can create Swift data models for all JSON files in a director
 json2swift /path/to/some/directory/
 ```
 
-When the tool generates only one Swift file, it includes utility methods that are used for JSON processing in that file. When multiple Swift files are generated, the utility methods are placed in a separate file, named `JSONUtilities.swift`.
+When the tool generates only one Swift file, it includes utility methods that are used for JSON processing in that file. When generating multiple Swift files the utility methods are placed in `JSONUtilities.swift`.
 
 The source code download includes an `example` directory with a `club_sample.json` file so that you can test it out.
 
@@ -77,7 +79,7 @@ Before being analyzed by the tool, this JSON should be changed to:
 }
 ```
 The resulting Swift data model struct will have a property defined as:
-```
+```swift
 let birthday: Date
 ```
 and will also have date parsing code that uses the specified date format.
@@ -87,7 +89,7 @@ and will also have date parsing code that uses the specified date format.
 What sets this JSON-to-Swift converter apart from the others is its type inference capabilities. The net result is Swift code that uses the most appropriate data types possible, based on the analyzed JSON data. This functionality really shines when analyzing an array of elements. 
 
 For example, suppose you have `json2swift` process this JSON data sample:
-```
+```json
 [
     {
         "nickname": "Johnson Rod",
@@ -100,7 +102,7 @@ For example, suppose you have `json2swift` process this JSON data sample:
 ]
 ```
 What should the data types of the `nickname` and `quantity` properties? If this tool only inspected the first element in the array, as other JSON-to-Swift converters do, it would arrive at the wrong answer of `String` and `Int`, respectively. Here is the output of `json2swift` which uses the correct data types for both properties:
-```
+```swift
 struct RootType: CreatableFromJSON { // TODO: Rename this struct
     let nickname: String?
     let quantity: Double
