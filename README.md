@@ -84,7 +84,7 @@ let birthday: Date
 ```
 and will also have date parsing code that uses the specified date format.
 
-Tip: For an array with multiple elements, you only need to add the `DATE_FORMAT=` hint to the date attribute of one element.
+*Tip: For an array with multiple elements, add the `DATE_FORMAT=` hint to the date attribute of only one element. It isn't necessary to add the hint to every element.*
 
 ## Type inference
 
@@ -103,7 +103,7 @@ For example, suppose you have `json2swift` process this JSON data sample:
     },
 ]
 ```
-What should the data types of the `nickname` and `quantity` properties? If this tool only inspected the first element in the array, as other JSON-to-Swift converters do, it would arrive at the wrong answer of `String` and `Int`, respectively. Here is the output of `json2swift` which uses the correct data types for both properties:
+What should be the data types of the `nickname` and `quantity` properties? If this tool only inspected the first element in the array, as other JSON-to-Swift converters do, it would arrive at the wrong answer of `String` and `Int`, respectively. Here is the output of `json2swift` which uses the correct data types for both properties:
 ```swift
 struct RootType: CreatableFromJSON { // TODO: Rename this struct
     let nickname: String?
