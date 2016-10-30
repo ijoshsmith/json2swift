@@ -84,6 +84,8 @@ let birthday: Date
 ```
 and will also have date parsing code that uses the specified date format.
 
+Tip: For an array with multiple elements, you only need to add the `DATE_FORMAT=` hint to the date attribute of one element.
+
 ## Type inference
 
 What sets this JSON-to-Swift converter apart from the others is its type inference capabilities. The net result is Swift code that uses the most appropriate data types possible, based on the analyzed JSON data. This functionality really shines when analyzing an array of elements. 
