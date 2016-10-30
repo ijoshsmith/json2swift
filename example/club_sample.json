@@ -1,0 +1,45 @@
+{
+    "club-name": "Random Person Club",
+    "headquarters": "New York City",
+    "members": [
+				{
+					"first-name": "Josh",
+					"last-name": "Smith",
+					"birthday": "DATE_FORMAT=yyyy-MM-dd",
+					"websites": [
+							"http://ijoshsmith.com",
+							"http://joshsmithonwpf.wordpress.com"
+					],
+					"favorite-color": "green",
+					"inches-tall": 78,
+					"hobbies": [
+							{
+									"type": "athletic",
+									"name": "cycling"
+							},
+							{
+									"type": "creative",
+									"name": "playing music"
+							},
+							{
+									"type": "intellectual",
+									"name": "reading books"
+							}
+					]
+				},
+				{
+					"first-name": "Johnny",
+					"last-name": "Appleseed",
+					"birthday": "1776-09-26",
+					"websites": [],
+					"favorite-color": null,
+					"inches-tall": 61.5,
+					"hobbies": [
+							{
+									"type": "agriculture",
+									"name": "apples"
+							}
+					]
+				}
+    ]
+}
