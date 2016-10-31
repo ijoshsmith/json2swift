@@ -122,7 +122,7 @@ fileprivate extension SwiftStruct {
     }
     
     private func linesOfCodeForNestedStructs(at indentation: Indentation) -> [LineOfCode] {
-        return nestedStructs.flatMap { $0.toLinesOfCode(at: indentation) }
+        return sortedNestedStructs.flatMap { $0.toLinesOfCode(at: indentation) }
     }
     
     private var sortedNestedStructs: [SwiftStruct] {
