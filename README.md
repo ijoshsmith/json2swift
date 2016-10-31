@@ -13,7 +13,7 @@ Written and unit tested in Swift 3.
 - Generates immutable Swift struct definitions
 - Generates thread-safe code to create structs from JSON data
 - Performs sophisticated type inference to detect URLs, parse dates, etc.
-- Creates properties with required values whenever possible, but optional if necessary
+- Creates properties with *required* values whenever possible, but *optional* if necessary
 - Processes a single JSON file or a directory of JSON files
 
 ## How to get it
@@ -41,13 +41,13 @@ You're ready to go!
 
 ## How to use it
 
-Open a Terminal window. Assuming you added the `json2swift` executable to your search path, it doesn't matter what your working directory is.
+Open a Terminal window. Assuming you added the `json2swift` executable to your search path, as shown in the previous section, it doesn't matter what your working directory is.
 
 Pass `json2swift` a JSON file path:
 ```
 json2swift /path/to/some/data_file.json
 ```
-The tool will create a file with the same name as the input file, but with a `.swift` extension. In the example above, the file would be named `data_file.swift`.
+The tool creates a file with the same name as the input file, but with a `.swift` extension. In the example above, the file is named `data_file.swift`.
 
 Alternatively, you can create Swift data models for all JSON files in a directory via:
 ```
@@ -66,7 +66,7 @@ There are precautions in place to ensure that Swift property names are valid. If
 
 ## Date parsing
 
-This tool has special support for JSON attributes with formatted date string values. If you provide a date format "hint" it will generate the necessary code to parse the date strings into `Date` objects using the provided date format. For example:
+`json2swift` has special support for JSON attributes with formatted date string values. If you provide a date format "hint" it will generate the necessary code to parse the date strings into `Date` objects using the provided format. For example:
 ```json
 {
     "birthday": "1945-12-25"
@@ -88,9 +88,9 @@ and will also have date parsing code that uses the specified date format.
 
 ## Type inference
 
-What sets this JSON-to-Swift converter apart from the others is its type inference capabilities. The net result is Swift code that uses the most appropriate data types possible, based on the analyzed JSON data. This functionality really shines when analyzing an array of elements. 
+What sets this JSON-to-Swift converter apart from the others is its type inference capabilities. The net result is Swift code that uses the most appropriate data types possible. This functionality really shines when analyzing an array of elements. 
 
-For example, suppose you have `json2swift` process this JSON data sample:
+For example, suppose `json2swift` analyzes this JSON data sample:
 ```json
 [
     {
@@ -100,7 +100,7 @@ For example, suppose you have `json2swift` process this JSON data sample:
     {
         "nickname": null,
         "quantity": 10.5
-    },
+    }
 ]
 ```
 What should be the data types of the `nickname` and `quantity` properties? If this tool only inspected the first element in the array, as other JSON-to-Swift converters do, it would arrive at the wrong answer of `String` and `Int`, respectively. Here is the output of `json2swift` which uses the correct data types for both properties:
@@ -119,6 +119,6 @@ struct RootType: CreatableFromJSON { // TODO: Rename this struct
     }
 }
 ```
-Note that `nickname` is an _optional_ `String` and `quantity` is a `Double` in order to accommodate the values found in both elements of the sample JSON data.
+Note that `nickname` is an _optional_ `String` and `quantity` is a `Double` (not an `Int`) in order to accommodate the values found in both elements of the sample JSON data.
 
-The type inference logic can only perform well if the JSON it analyzes has enough information about the data set. If the generated code doesn't work with all possible values that might be encountered in production, feel free to modify the code as you see fit.
+The type inference logic can only perform well if the JSON it analyzes has enough information about the data set. If the generated code doesn't work with all possible values that might be encountered in production, feel free to modify it as you see fit.
