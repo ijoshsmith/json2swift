@@ -84,7 +84,7 @@ fileprivate extension JSONType {
         switch types.count {
         case 0:  abort() // Should never introspect an empty array.
         case 1:  return types[0]
-        default: return types.dropFirst().reduce(types[0]) { $0.findCompatibleType(for: $1) }
+        default: return types.dropFirst().reduce(types[0]) { $0.findCompatibleType(with: $1) }
         }
     }
     

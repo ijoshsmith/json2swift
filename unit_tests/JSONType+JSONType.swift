@@ -9,6 +9,6 @@
 extension JSONType {
     /// A shortcut function that helps create concise unit tests.
     static func +(lhs: JSONType, rhs: JSONType) -> JSONType {
-        return lhs.findCompatibleType(for: rhs)
+        return lhs.findCompatibleType(with: rhs)
     }
 }

@@ -33,14 +33,14 @@ extension JSONType {
         let mergedAttributes = attributeNames.map { name -> (String, JSONType) in
             let type = attributes[name] ?? .nullable
             let otherType = otherAttributes[name] ?? .nullable
-            let compatibleType = type.findCompatibleType(for: otherType)
+            let compatibleType = type.findCompatibleType(with: otherType)
             return (name, compatibleType)
         }
         return JSONAttributeMap(entries: mergedAttributes)
     }
     
     // This method is internal to enable unit test access.
-    internal func findCompatibleType(for type: JSONType) -> JSONType {
+    internal func findCompatibleType(with type: JSONType) -> JSONType {
         return JSONType.compatible(with: self, and: type)
     }
     
@@ -57,7 +57,7 @@ extension JSONType {
         case let (.nullable,                 .elementArray(_,  s, _)):   return .elementArray(isRequired: false,    elementSchema: s,                   hasNullableElements: true)
         
         // Value Array
-        case let (.valueArray(r1, t1), .valueArray(r2, t2)): return .valueArray(isRequired: r1 && r2, valueType: t1.findCompatibleType(for: t2))
+        case let (.valueArray(r1, t1), .valueArray(r2, t2)): return .valueArray(isRequired: r1 && r2, valueType: t1.findCompatibleType(with: t2))
         case let (.valueArray(_,  t),  .nullable):           return .valueArray(isRequired: false,    valueType: t)
         case let (.nullable,           .valueArray(_,  t)):  return .valueArray(isRequired: false,    valueType: t)
             
