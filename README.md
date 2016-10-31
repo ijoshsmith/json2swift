@@ -41,19 +41,16 @@ You're ready to go!
 
 ## How to use it
 
-Open a Terminal window. Assuming you added the `json2swift` executable to your search path, as shown in the previous section, it doesn't matter what your working directory is.
-
-Pass `json2swift` a JSON file path:
+Open a Terminal window and pass `json2swift` a JSON file path:
 ```
 json2swift /path/to/some/data_file.json
 ```
-The tool creates a file with the same name as the input file, but with a `.swift` extension. In the example above, the file is named `data_file.swift`.
+The tool creates a file with the same path as the input file, but with a `.swift` extension. In the example above, the output file is `/path/to/some/data_file.swift`.
 
 Alternatively, you can create Swift data models for all JSON files in a directory via:
 ```
 json2swift /path/to/some/directory/
 ```
-
 When the tool generates only one Swift file, it includes utility methods that are used for JSON processing in that file. When generating multiple Swift files the utility methods are placed in `JSONUtilities.swift`.
 
 The source code download includes an `example` directory with a `club_sample.json` file so that you can test it out.
@@ -90,7 +87,7 @@ and will also have date parsing code that uses the specified date format.
 
 What sets this JSON-to-Swift converter apart from the others is its type inference capabilities. The net result is Swift code that uses the most appropriate data types possible. This functionality really shines when analyzing an array of elements. 
 
-For example, suppose `json2swift` analyzes this JSON data sample:
+For example, suppose `json2swift` analyzes this JSON:
 ```json
 [
     {
