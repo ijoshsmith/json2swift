@@ -72,8 +72,8 @@ fileprivate extension JSONType {
     var swiftTypeName: String {
         switch self {
         case let .element(_, schema):                                  return schema.name.toSwiftStructName()
-        case let .elementArray(_, elementSchema, hasNullableElements): return nameForArray(of: elementSchema, hasNullableElements)
-        case let .valueArray(_, valueType):                            return nameForArray(of: valueType)
+        case let .elementArray(_, elementSchema, hasNullableElements): return JSONType.nameForArray(of: elementSchema, hasNullableElements)
+        case let .valueArray(_, valueType):                            return JSONType.nameForArray(of: valueType)
         case let .number(_, isFloatingPoint):                          return isFloatingPoint ? "Double" : "Int"
         case     .date:                                                return "Date"
         case     .url:                                                 return "URL"
@@ -84,15 +84,15 @@ fileprivate extension JSONType {
         }
     }
     
-    private func nameForArray(of schema: JSONElementSchema, _ hasOptionalElements: Bool) -> String {
+    private static func nameForArray(of schema: JSONElementSchema, _ hasOptionalElements: Bool) -> String {
         return nameForArray(of: schema.name.toSwiftStructName(), hasOptionalElements: hasOptionalElements)
     }
     
-    private func nameForArray(of valueType: JSONType) -> String {
+    private static func nameForArray(of valueType: JSONType) -> String {
         return nameForArray(of: valueType.swiftTypeName, hasOptionalElements: valueType.isRequired == false)
     }
     
-    private func nameForArray(of typeName: String, hasOptionalElements: Bool) -> String {
+    private static func nameForArray(of typeName: String, hasOptionalElements: Bool) -> String {
         let fullTypeName = hasOptionalElements
             ? typeName + "?"
             : typeName
