@@ -9,7 +9,7 @@
 import Foundation
 
 /* 
- * This tool and its documentation is hosted at https://github.com/ijoshsmith/json2swift
+ * This tool and its documentation are hosted at https://github.com/ijoshsmith/json2swift
  */
 
 // The first argument is the executable's file path, which is irrelevant.
