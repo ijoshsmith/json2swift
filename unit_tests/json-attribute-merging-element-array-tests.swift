@@ -33,6 +33,7 @@ private let oay = JSONType.elementArray(isRequired: false, elementSchema: schema
 private let ram = JSONType.elementArray(isRequired: true,  elementSchema: schemaM, hasNullableElements: false)
 private let oam = JSONType.elementArray(isRequired: false, elementSchema: schemaM, hasNullableElements: false)
 
+private let raxn = JSONType.elementArray(isRequired: true,  elementSchema: schemaX, hasNullableElements: true)
 private let oaxn = JSONType.elementArray(isRequired: false, elementSchema: schemaX, hasNullableElements: true)
 
 class json_attribute_merging_element_array_tests: XCTestCase {
@@ -47,11 +48,17 @@ class json_attribute_merging_element_array_tests: XCTestCase {
      m = Merged Schema (X + Y)
      */
     
-    // MARK: - Array and Nullable
-    func test_ra_and_nullable_yields_oa() { XCTAssertEqual(rax + .nullable, oaxn) }
-    func test_oa_and_nullable_yields_oa() { XCTAssertEqual(oax + .nullable, oaxn) }
-    func test_nullable_and_ra_yields_oa() { XCTAssertEqual(.nullable + rax, oaxn) }
-    func test_nullable_and_oa_yields_oa() { XCTAssertEqual(.nullable + oax, oaxn) }
+    // MARK: - Array of Non-Nullable Elements and Nullable
+    func test_rax_and_nullable_yields_oax() { XCTAssertEqual(rax + .nullable, oax) }
+    func test_oax_and_nullable_yields_oax() { XCTAssertEqual(oax + .nullable, oax) }
+    func test_nullable_and_rax_yields_oax() { XCTAssertEqual(.nullable + rax, oax) }
+    func test_nullable_and_oax_yields_oax() { XCTAssertEqual(.nullable + oax, oax) }
+    
+    // MARK: - Array of Nullable Elements and Nullable
+    func test_raxn_and_nullable_yields_oaxn() { XCTAssertEqual(raxn + .nullable, oaxn) }
+    func test_oaxn_and_nullable_yields_oaxn() { XCTAssertEqual(oaxn + .nullable, oaxn) }
+    func test_nullable_and_raxn_yields_oaxn() { XCTAssertEqual(.nullable + raxn, oaxn) }
+    func test_nullable_and_oaxn_yields_oaxn() { XCTAssertEqual(.nullable + oaxn, oaxn) }
     
     // MARK: - Arrays with same schema
     func test_ra_and_ra_yields_ra() { XCTAssertEqual(rax + rax, rax) }

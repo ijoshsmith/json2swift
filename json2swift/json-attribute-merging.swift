@@ -53,8 +53,8 @@ extension JSONType {
 
         // Element Array
         case let (.elementArray(r1, s1, n1), .elementArray(r2, s2, n2)): return .elementArray(isRequired: r1 && r2, elementSchema: s1.merged(with: s2), hasNullableElements: n1 || n2)
-        case let (.elementArray(_,  s, _),   .nullable):                 return .elementArray(isRequired: false,    elementSchema: s,                   hasNullableElements: true)
-        case let (.nullable,                 .elementArray(_,  s, _)):   return .elementArray(isRequired: false,    elementSchema: s,                   hasNullableElements: true)
+        case let (.elementArray(_,  s,  n1), .nullable):                 return .elementArray(isRequired: false,    elementSchema: s,                   hasNullableElements: n1)
+        case let (.nullable,                 .elementArray(_,  s,  n2)): return .elementArray(isRequired: false,    elementSchema: s,                   hasNullableElements: n2)
         
         // Value Array
         case let (.valueArray(r1, t1), .valueArray(r2, t2)): return .valueArray(isRequired: r1 && r2, valueType: t1.findCompatibleType(with: t2))
