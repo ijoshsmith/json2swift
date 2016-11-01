@@ -1,5 +1,7 @@
 # json2swift
 
+![Overview](/images/json2swift.jpg)
+
 A macOS command line tool that generates excellent Swift data models based on JSON data.
 
 It takes care of the boring error-prone grunt work of consuming JSON data in your app.
@@ -22,7 +24,7 @@ Written and unit tested in Swift 3.
 - Build the project
 - Open a Finder window to the executable file
 
-![How to find the executable](/screenshots/show_in_finder.png)
+![How to find the executable](/images/show_in_finder.png)
 
 - Copy `json2swift` to your desktop
 - Open a Terminal window and run this command:
