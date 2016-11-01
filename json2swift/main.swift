@@ -8,6 +8,10 @@
 
 import Foundation
 
+/* 
+ * This tool and its documentation is hosted at https://github.com/ijoshsmith/json2swift
+ */
+
 // The first argument is the executable's file path, which is irrelevant.
 let arguments = Array(CommandLine.arguments.dropFirst())
 if let errorMessage = run(with: arguments) {
