@@ -245,7 +245,7 @@ internal extension TransformationFromJSON {
     }
     
     private static func letStatementForCustomStruct(_ attributeName: String, _ propertyName: String, _ type: SwiftStruct) -> LineOfCode {
-        return "let \(propertyName) = (json[\"\(attributeName)\"] as? [String: Any]).flatMap(\(type.name).init(json:))"
+        return "let \(propertyName) = \(type.name)(json: json, key: \"\(attributeName)\")"
     }
     
     private static func letStatementForPrimitiveValue(_ attributeName: String, _ propertyName: String, _ type: SwiftPrimitiveValueType) -> LineOfCode {

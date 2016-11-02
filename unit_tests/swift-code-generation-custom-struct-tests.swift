@@ -12,7 +12,7 @@ class swift_code_generation_custom_struct_tests: XCTestCase {
     func test_custom_struct() {
         let customStruct = createStruct(named: "SomeStruct")
         let transformation = TransformationFromJSON.toCustomStruct(attributeName: "a", propertyName: "p", type: customStruct)
-        XCTAssertEqual(transformation.letStatement, "let p = (json[\"a\"] as? [String: Any]).flatMap(SomeStruct.init(json:))")
+        XCTAssertEqual(transformation.letStatement, "let p = SomeStruct(json: json, key: \"a\")")
     }
     
     func test_array_of_required_struct() {
