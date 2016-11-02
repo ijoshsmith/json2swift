@@ -250,7 +250,7 @@ internal extension TransformationFromJSON {
     
     private static func letStatementForPrimitiveValue(_ attributeName: String, _ propertyName: String, _ type: SwiftPrimitiveValueType) -> LineOfCode {
         switch type {
-        case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"]"
+        case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"] as? [Any?]" // Any is treated as optional.
         case .bool, .int, .string: return "let \(propertyName) = json[\"\(attributeName)\"] as? \(type.name)"
         case .double:              return "let \(propertyName) = Double(json: json, key: \"\(attributeName)\")" // Allows an integer to be interpreted as a double.
         case .url:                 return "let \(propertyName) = URL(json: json, key: \"\(attributeName)\")"
@@ -281,10 +281,11 @@ internal extension TransformationFromJSON {
     
     private static func letStatementForArrayOfRequiredPrimitiveValues(_ attributeName: String, _ propertyName: String, _ elementType: SwiftPrimitiveValueType) -> LineOfCode {
         switch elementType {
-        case .any, .bool, .int, .string: return "let \(propertyName) = json[\"\(attributeName)\"] as? [\(elementType.name)]"
-        case .date(let format):          return "let \(propertyName) = (json[\"\(attributeName)\"] as? [String]).flatMap({ $0.toDateArray(withFormat: \"\(format)\") })"
-        case .double:                    return "let \(propertyName) = (json[\"\(attributeName)\"] as? [NSNumber]).map({ $0.toDoubleArray() })"
-        case .url:                       return "let \(propertyName) = (json[\"\(attributeName)\"] as? [String]).flatMap({ $0.toURLArray() })"
+        case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"] as? [Any?]" // Any is treated as optional.
+        case .bool, .int, .string: return "let \(propertyName) = json[\"\(attributeName)\"] as? [\(elementType.name)]"
+        case .date(let format):    return "let \(propertyName) = (json[\"\(attributeName)\"] as? [String]).flatMap({ $0.toDateArray(withFormat: \"\(format)\") })"
+        case .double:              return "let \(propertyName) = (json[\"\(attributeName)\"] as? [NSNumber]).map({ $0.toDoubleArray() })"
+        case .url:                 return "let \(propertyName) = (json[\"\(attributeName)\"] as? [String]).flatMap({ $0.toURLArray() })"
         }
     }
 }

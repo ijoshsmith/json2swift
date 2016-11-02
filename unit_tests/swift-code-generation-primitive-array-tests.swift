@@ -14,7 +14,7 @@ class swift_code_generation_primitive_array_tests: XCTestCase {
     
     func test_array_of_required_any() {
         let transformation = TransformationFromJSON.toPrimitiveValueArray(attributeName: "a", propertyName: "p", elementType: .any, hasOptionalElements: false)
-        XCTAssertEqual(transformation.letStatement, "let p = json[\"a\"] as? [Any]")
+        XCTAssertEqual(transformation.letStatement, "let p = json[\"a\"] as? [Any?]") // Any is treated as optional.
     }
     
     func test_array_of_required_bool() {
