@@ -10,35 +10,39 @@ import Foundation
 
 internal extension String {
     func toSwiftStructName() -> String {
-        let name = self.capitalizedWithoutInvalidChars()
+        let name = capitalizedWithoutInvalidChars.prefixedWithUnderscoreIfNecessary
         return name.isEmpty ? "DefaultStructName" : name
     }
     
     func toSwiftPropertyName() -> String {
-        let name = self.capitalizedWithoutInvalidChars().lowercasedFirstCharacter
-        if      name.isEmpty        { return "defaultPropertyName" }
-        else if name.isSwiftKeyword { return "_" + name }
-        else                        { return name }
+        let name = capitalizedWithoutInvalidChars.lowercasedFirstCharacter.prefixedWithUnderscoreIfNecessary
+        return name.isEmpty ? "defaultPropertyName" : name
     }
     
-    private func capitalizedWithoutInvalidChars() -> String {
-        let trimmed = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    private var capitalizedWithoutInvalidChars: String {
+        let trimmed = trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         let parts = trimmed.components(separatedBy: invalidSwiftNameCharacters)
         let capitalizedParts = parts.map { $0.uppercasedFirstCharacter }
         return capitalizedParts.joined()
     }
     
+    private var prefixedWithUnderscoreIfNecessary: String {
+        return isSwiftKeyword || startsWithNumber
+            ? "_" + self
+            : self
+    }
+    
     private var uppercasedFirstCharacter: String {
-        return self.modifyFirstCharacter(byApplying: { String($0).uppercased() })
+        return modifyFirstCharacter(byApplying: { String($0).uppercased() })
     }
     
     private var lowercasedFirstCharacter: String {
-        return self.modifyFirstCharacter(byApplying: { String($0).lowercased() })
+        return modifyFirstCharacter(byApplying: { String($0).lowercased() })
     }
     
     private func modifyFirstCharacter(byApplying characterTransform: (Character) -> String) -> String {
         guard isEmpty == false else { return self }
-        let firstChar = self.characters.first!
+        let firstChar = characters.first!
         let modifiedFirstChar = characterTransform(firstChar)
         let rangeOfFirstRange = Range(uncheckedBounds: (lower: startIndex, upper: index(after: startIndex)))
         return replacingCharacters(in: rangeOfFirstRange, with: modifiedFirstChar)
@@ -47,9 +51,14 @@ internal extension String {
     private var isSwiftKeyword: Bool {
         return swiftKeywords.contains(self)
     }
+    
+    private var startsWithNumber: Bool {
+        guard let digitRange = rangeOfCharacter(from: CharacterSet.decimalDigits) else { return false }
+        return digitRange.lowerBound == startIndex
+    }
 }
 
-private let invalidSwiftNameCharacters = CharacterSet.alphanumerics.union(CharacterSet(charactersIn: "_")).inverted
+private let invalidSwiftNameCharacters = CharacterSet.alphanumerics.inverted
 private let swiftKeywords: Set<String> = [
     "Any",
     "as",

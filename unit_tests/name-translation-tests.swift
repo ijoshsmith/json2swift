@@ -27,19 +27,44 @@ class name_translation_tests: XCTestCase {
         XCTAssertEqual(jsonName.toSwiftStructName(), "FakeName")
     }
     
+    func test_to_swift_struct_name_removes_underscore() {
+        let jsonName = "fake_name"
+        XCTAssertEqual(jsonName.toSwiftStructName(), "FakeName")
+    }
+    
     func test_to_swift_property_name_removes_hyphen() {
         let jsonName = "fake-name"
         XCTAssertEqual(jsonName.toSwiftPropertyName(), "fakeName")
     }
     
-    func test_to_swift_property_name_preserves_trailing_with_underscore() {
-        let jsonName = "fake-name_"
-        XCTAssertEqual(jsonName.toSwiftPropertyName(), "fakeName_")
+    func test_to_swift_property_name_removes_leading_underscore() {
+        let jsonName = "_foo"
+        XCTAssertEqual(jsonName.toSwiftPropertyName(), "foo")
+    }
+    
+    func test_to_swift_property_name_removes_trailing_underscore() {
+        let jsonName = "foo_"
+        XCTAssertEqual(jsonName.toSwiftPropertyName(), "foo")
+    }
+    
+    func test_to_swift_property_name_removes_separator_underscore() {
+        let jsonName = "foo_bar"
+        XCTAssertEqual(jsonName.toSwiftPropertyName(), "fooBar")
+    }
+    
+    func test_to_swift_property_name_removes_two_consecutive_separator_underscores() {
+        let jsonName = "foo__bar"
+        XCTAssertEqual(jsonName.toSwiftPropertyName(), "fooBar")
     }
     
     func test_to_swift_property_name_preserves_trailing_caps() {
         let jsonName = "SomeHTML"
         XCTAssertEqual(jsonName.toSwiftPropertyName(), "someHTML")
+    }
+    
+    func test_to_swift_property_name_adds_underscore_before_initial_number() {
+        let jsonName = "4th_item"
+        XCTAssertEqual(jsonName.toSwiftPropertyName(), "_4thItem")
     }
     
     // MARK: - Avoiding Swift keywords
