@@ -186,19 +186,17 @@ fileprivate extension SwiftFailableInitializer {
     }
     
     private func linesOfCodeInMethodBody(at indentation: Indentation) -> [LineOfCode] {
-        let transformationLines = linesOfCodeForTransformations(at: indentation)
-        let callInitializerLine = lineOfCodeForCallingInitializer(at: indentation)
-        let linesOfCode = transformationLines + [callInitializerLine]
+        let linesOfCode = linesOfCodeForTransformations + [lineOfCodeForCallingInitializer]
         return linesOfCode.map(indentation.apply(toLineOfCode:))
     }
     
-    private func linesOfCodeForTransformations(at indentation: Indentation) -> [LineOfCode] {
+    private var linesOfCodeForTransformations: [LineOfCode] {
         let requiredTransformationLines = sortedRequiredTransformations.map { $0.guardedLetStatement }
         let optionalTransformationLines = sortedOptionalTransformations.map { $0.letStatement }
         return (requiredTransformationLines + optionalTransformationLines)
     }
     
-    private func lineOfCodeForCallingInitializer(at indentation: Indentation) -> LineOfCode {
+    private var lineOfCodeForCallingInitializer: LineOfCode {
         let sortedPropertyNames = (requiredTransformations + optionalTransformations).map { $0.propertyName }.sorted()
         let labeledArguments = sortedPropertyNames.map { $0 + ": " + $0 }
         let argumentList = labeledArguments.joined(separator: ", ")
