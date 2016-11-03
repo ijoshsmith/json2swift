@@ -18,6 +18,10 @@ Written and unit tested in Swift 3.
 - Creates properties with *required* values whenever possible, but *optional* if necessary
 - Processes a single JSON file or a directory of JSON files
 
+## What is code generation?
+
+Using a JSON-to-Swift code generator is very different from using a JSON library API. If you have never worked with a code generator before, check out [this blog post](https://ijoshsmith.com/2016/11/03/swift-json-library-vs-code-generation/) for a quick overview.
+
 ## How to get it
 
 - Clone the repository, or download the source code
