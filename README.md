@@ -61,6 +61,8 @@ When the tool generates only one Swift file, it includes utility methods that ar
 
 The source code download includes an `example` directory with a `club_sample.json` file so that you can test it out.
 
+For more info to help get started, check out [Generating Models from JSON with json2swift](https://littlebitesofcocoa.com/283-generating-models-from-json-with-json2swift) by [Jake Marsh](https://github.com/jakemarsh).
+
 ## Structure and property names
 
 This tool has no reliable way to create good names for the Swift structs it generates. It follows a simple heuristic to convert names found in JSON attributes to Swift-friendly names, and leaves a `// TODO` comment reminding a developer to rename the structs. 
