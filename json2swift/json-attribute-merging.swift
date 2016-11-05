@@ -39,7 +39,6 @@ extension JSONType {
         return JSONAttributeMap(entries: mergedAttributes)
     }
     
-    // This method is internal to enable unit test access.
     internal func findCompatibleType(with type: JSONType) -> JSONType {
         return JSONType.compatible(with: self, and: type)
     }
