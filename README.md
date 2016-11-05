@@ -46,10 +46,12 @@ Or build the tool in Xcode yourself:
 
 Assuming that the `json2swift` app is on your desktop…
 
-- Open a Terminal window and run this command:
+Open a Terminal window and run this command:
 ```
 cp ~/Desktop/json2swift /usr/local/bin/
 ```
+Now that a copy of `json2swift` is in your search path, delete it from your desktop.
+
 Verify `json2swift` is in your search path by running this in Terminal:
 ```
 json2swift
