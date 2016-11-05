@@ -24,7 +24,7 @@ Using a JSON-to-Swift code generator is very different from using a JSON library
 
 ## How to get it
 
-- Download the `json2swift` app binary from latest [release](https://github.com/ijoshsmith/json2swift/releases).
+- Download the `json2swift` app binary from the latest [release](https://github.com/ijoshsmith/json2swift/releases)
 - Copy `json2swift` to your desktop
 - Open a Terminal window and run this command to give the app permission to execute:
 
@@ -50,8 +50,6 @@ Open a Terminal window and run this command:
 ```
 cp ~/Desktop/json2swift /usr/local/bin/
 ```
-Now that a copy of `json2swift` is in your search path, delete it from your desktop.
-
 Verify `json2swift` is in your search path by running this in Terminal:
 ```
 json2swift
@@ -60,7 +58,9 @@ You should see the tool respond like this:
 ```
 Error: Please provide a JSON file path or directory path.
 ```
-You're ready to go!
+Now that a copy of `json2swift` is in your search path, delete it from your desktop.
+
+You're ready to go! 🎉
 
 ## How to use it
 
