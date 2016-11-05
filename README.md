@@ -29,7 +29,7 @@ Using a JSON-to-Swift code generator is very different from using a JSON library
 - Open a Terminal window and run this command to give the app permission to execute:
 
 ```
-chmod 777 ~/Desktop/json2swift
+chmod +x ~/Desktop/json2swift
 ```
 
 Or build the tool in Xcode yourself:
