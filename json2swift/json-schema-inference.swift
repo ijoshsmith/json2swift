@@ -39,7 +39,7 @@ extension JSONElementSchema {
 fileprivate extension JSONType {
     static func inferType(of value: Any, named name: String) -> JSONType {
         switch value {
-        case let element as JSONElement: return inferType(of: element,  named: name)
+        case let element as JSONElement: return inferType(of: element, named: name)
         case let array   as [Any]:       return inferType(of: array, named: name)
         case let nsValue as NSValue:     return inferType(of: nsValue)
         case let string  as String:      return inferType(of: string)

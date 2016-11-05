@@ -64,7 +64,6 @@ private func resolveAbsolutePaths(for jsonFileNames: [String], inDirectory direc
 }
 
 
-
 // MARK: - Generating Swift file based on JSON
 private func generateSwiftFileBasedOnJSON(inFile jsonFilePath: String, includeJSONUtilities: Bool) -> ErrorMessage? {
     let url = URL(fileURLWithPath: jsonFilePath)
