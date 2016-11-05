@@ -24,7 +24,13 @@ Using a JSON-to-Swift code generator is very different from using a JSON library
 
 ## How to get it
 
-Download the `json2swift` app binary from latest [release](https://github.com/ijoshsmith/json2swift/releases).
+- Download the `json2swift` app binary from latest [release](https://github.com/ijoshsmith/json2swift/releases).
+- Copy `json2swift` to your desktop
+- Open a Terminal window and run this command to give the app permission to execute:
+
+```
+chmod 777 ~/Desktop/json2swift
+```
 
 Or build the tool in Xcode yourself:
 
@@ -34,11 +40,12 @@ Or build the tool in Xcode yourself:
 
 ![How to find the executable](/images/show_in_finder.png)
 
-- Drag `json2swift` to your desktop
+- Drag `json2swift` from the Finder window to your desktop
 
 ## How to install it
 
-Assuming that the `json2swift` app is on your Desktop…
+Assuming that the `json2swift` app is on your desktop…
+
 - Open a Terminal window and run this command:
 ```
 cp ~/Desktop/json2swift /usr/local/bin/
