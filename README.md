@@ -144,3 +144,7 @@ struct RootType: CreatableFromJSON { // TODO: Rename this struct
 Note that `nickname` is an _optional_ `String` and `quantity` is a `Double` (not an `Int`) in order to accommodate the values found in both elements of the sample JSON data.
 
 The type inference logic can only perform well if the JSON it analyzes has enough information about the data set. If the generated code doesn't work with all possible values that might be encountered in production, feel free to modify it as you see fit.
+
+## How does it work?
+
+For a high-level overview of how this tool works, check out [this brief article](https://ijoshsmith.com/2016/11/10/json2swift-a-peek-under-the-hood/).
