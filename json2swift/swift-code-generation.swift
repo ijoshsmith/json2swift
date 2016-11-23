@@ -245,7 +245,7 @@ internal extension TransformationFromJSON {
     
     private static func letStatementForPrimitiveValue(_ attributeName: String, _ propertyName: String, _ type: SwiftPrimitiveValueType) -> LineOfCode {
         switch type {
-        case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"] as? [Any?]" // Any is treated as optional.
+        case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"] as? Any" // Any is treated as optional.
         case .bool, .int, .string: return "let \(propertyName) = json[\"\(attributeName)\"] as? \(type.name)"
         case .double:              return "let \(propertyName) = Double(json: json, key: \"\(attributeName)\")" // Allows an integer to be interpreted as a double.
         case .url:                 return "let \(propertyName) = URL(json: json, key: \"\(attributeName)\")"

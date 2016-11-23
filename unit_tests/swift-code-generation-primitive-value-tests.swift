@@ -11,7 +11,7 @@ import XCTest
 class swift_code_generation_primitive_value_tests: XCTestCase {
     func test_any() {
         let transformation = TransformationFromJSON.toPrimitiveValue(attributeName: "a", propertyName: "p", type: .any)
-        XCTAssertEqual(transformation.letStatement, "let p = json[\"a\"] as? [Any?]")
+        XCTAssertEqual(transformation.letStatement, "let p = json[\"a\"] as? Any")
     }
     
     func test_bool() {
