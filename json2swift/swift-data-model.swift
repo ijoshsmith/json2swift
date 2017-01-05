@@ -55,4 +55,5 @@ enum SwiftPrimitiveValueType {
     case string
     case bool
     case any
+    case emptyArray
 }

@@ -67,9 +67,9 @@ fileprivate extension SwiftPrimitiveValueType {
         case .anything,
              .element,
              .elementArray,
-             .emptyArray,
              .nullable,
              .valueArray:                     return .any
+        case .emptyArray:                     return .emptyArray
         case .number(_, let isFloatingPoint): return isFloatingPoint ? .double : .int
         case .date(_, let format):            return .date(format: format)
         case .url:                            return .url

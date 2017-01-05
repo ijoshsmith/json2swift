@@ -32,6 +32,11 @@ class swift_code_generation_primitive_array_tests: XCTestCase {
         XCTAssertEqual(transformation.letStatement, "let p = (json[\"a\"] as? [NSNumber]).map({ $0.toDoubleArray() })")
     }
     
+    func test_array_of_required_emptyArray() {
+        let transformation = TransformationFromJSON.toPrimitiveValueArray(attributeName: "a", propertyName: "p", elementType: .emptyArray, hasOptionalElements: false)
+        XCTAssertEqual(transformation.letStatement, "let p = json[\"a\"] as? [[Any?]]")
+    }
+    
     func test_array_of_required_int() {
         let transformation = TransformationFromJSON.toPrimitiveValueArray(attributeName: "a", propertyName: "p", elementType: .int, hasOptionalElements: false)
         XCTAssertEqual(transformation.letStatement, "let p = json[\"a\"] as? [Int]")
@@ -67,6 +72,11 @@ class swift_code_generation_primitive_array_tests: XCTestCase {
     func test_array_of_optional_double() {
         let transformation = TransformationFromJSON.toPrimitiveValueArray(attributeName: "a", propertyName: "p", elementType: .double, hasOptionalElements: true)
         XCTAssertEqual(transformation.letStatement, "let p = (json[\"a\"] as? [Any]).map({ $0.toOptionalDoubleArray() })")
+    }
+    
+    func test_array_of_optional_emptyArray() {
+        let transformation = TransformationFromJSON.toPrimitiveValueArray(attributeName: "a", propertyName: "p", elementType: .emptyArray, hasOptionalElements: true)
+        XCTAssertEqual(transformation.letStatement, "let p = (json[\"a\"] as? [Any]).map({ $0.toOptionalValueArray() as [[Any?]?] })")
     }
     
     func test_array_of_optional_int() {

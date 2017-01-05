@@ -246,6 +246,7 @@ internal extension TransformationFromJSON {
     private static func letStatementForPrimitiveValue(_ attributeName: String, _ propertyName: String, _ type: SwiftPrimitiveValueType) -> LineOfCode {
         switch type {
         case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"] as? Any"
+        case .emptyArray:          return "let \(propertyName) = json[\"\(attributeName)\"] as? [Any?]"
         case .bool, .int, .string: return "let \(propertyName) = json[\"\(attributeName)\"] as? \(type.name)"
         case .double:              return "let \(propertyName) = Double(json: json, key: \"\(attributeName)\")" // Allows an integer to be interpreted as a double.
         case .url:                 return "let \(propertyName) = URL(json: json, key: \"\(attributeName)\")"
@@ -267,16 +268,17 @@ internal extension TransformationFromJSON {
     
     private static func letStatementForArrayOfOptionalPrimitiveValues(_ attributeName: String, _ propertyName: String, _ elementType: SwiftPrimitiveValueType) -> LineOfCode {
         switch elementType {
-        case .any, .bool, .int, .string: return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalValueArray() as [\(elementType.name)?] })"
-        case .date(let format):          return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalDateArray(withFormat: \"\(format)\") })"
-        case .double:                    return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalDoubleArray() })"
-        case .url:                       return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalURLArray() })"
+        case .any, .bool, .int, .string, .emptyArray: return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalValueArray() as [\(elementType.name)?] })"
+        case .date(let format):                       return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalDateArray(withFormat: \"\(format)\") })"
+        case .double:                                 return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalDoubleArray() })"
+        case .url:                                    return "let \(propertyName) = (json[\"\(attributeName)\"] as? [Any]).map({ $0.toOptionalURLArray() })"
         }
     }
     
     private static func letStatementForArrayOfRequiredPrimitiveValues(_ attributeName: String, _ propertyName: String, _ elementType: SwiftPrimitiveValueType) -> LineOfCode {
         switch elementType {
         case .any:                 return "let \(propertyName) = json[\"\(attributeName)\"] as? [Any?]" // Any is treated as optional.
+        case .emptyArray:          return "let \(propertyName) = json[\"\(attributeName)\"] as? [[Any?]]"
         case .bool, .int, .string: return "let \(propertyName) = json[\"\(attributeName)\"] as? [\(elementType.name)]"
         case .date(let format):    return "let \(propertyName) = (json[\"\(attributeName)\"] as? [String]).flatMap({ $0.toDateArray(withFormat: \"\(format)\") })"
         case .double:              return "let \(propertyName) = (json[\"\(attributeName)\"] as? [NSNumber]).map({ $0.toDoubleArray() })"
@@ -288,13 +290,14 @@ internal extension TransformationFromJSON {
 fileprivate extension SwiftPrimitiveValueType {
     var name: String {
         switch self {
-        case .any:    return "Any"
-        case .bool:   return "Bool"
-        case .date:   return "Date"
-        case .double: return "Double"
-        case .int:    return "Int"
-        case .string: return "String"
-        case .url:    return "URL"
+        case .any:        return "Any"
+        case .bool:       return "Bool"
+        case .date:       return "Date"
+        case .double:     return "Double"
+        case .emptyArray: return "[Any?]"
+        case .int:        return "Int"
+        case .string:     return "String"
+        case .url:        return "URL"
         }
     }
 }
