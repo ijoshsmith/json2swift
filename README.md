@@ -8,7 +8,7 @@ It takes care of the boring error-prone grunt work of consuming JSON data in you
 
 Feel free to modify the code it creates for you.
 
-Written and unit tested in Swift 3.
+Written and unit tested in Swift 4.2.
 
 ## Features
 
