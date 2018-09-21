@@ -33,8 +33,9 @@ func run(with arguments: [String]) -> ErrorMessage? {
         : nil
 
     let shouldIncludeUtils = jsonUtilitiesFilePath == nil
+    let rootType = arguments.count >= 2 ? arguments[1] : "root-type"
     for jsonFilePath in jsonFilePaths {
-        if let errorMessage = generateSwiftFileBasedOnJSON(inFile: jsonFilePath, includeJSONUtilities: shouldIncludeUtils) {
+        if let errorMessage = generateSwiftFileBasedOnJSON(inFile: jsonFilePath, includeJSONUtilities: shouldIncludeUtils, rootTypeName: rootType) {
             return errorMessage
         }
     }
@@ -65,7 +66,7 @@ private func resolveAbsolutePaths(for jsonFileNames: [String], inDirectory direc
 
 
 // MARK: - Generating Swift file based on JSON
-private func generateSwiftFileBasedOnJSON(inFile jsonFilePath: String, includeJSONUtilities: Bool) -> ErrorMessage? {
+private func generateSwiftFileBasedOnJSON(inFile jsonFilePath: String, includeJSONUtilities: Bool, rootTypeName: String) -> ErrorMessage? {
     let url = URL(fileURLWithPath: jsonFilePath)
     let data: Data
     do    { data = try Data(contentsOf: url) }
@@ -76,8 +77,8 @@ private func generateSwiftFileBasedOnJSON(inFile jsonFilePath: String, includeJS
     catch { return "File does not contain valid JSON: \(jsonFilePath)" }
     
     let jsonSchema: JSONElementSchema
-    if      let jsonElement = jsonObject as? JSONElement   { jsonSchema = JSONElementSchema.inferred(from: jsonElement, named: "root-type") }
-    else if let jsonArray   = jsonObject as? [JSONElement] { jsonSchema = JSONElementSchema.inferred(from: jsonArray,   named: "root-type") }
+    if      let jsonElement = jsonObject as? JSONElement   { jsonSchema = JSONElementSchema.inferred(from: jsonElement, named: rootTypeName) }
+    else if let jsonArray   = jsonObject as? [JSONElement] { jsonSchema = JSONElementSchema.inferred(from: jsonArray,   named: rootTypeName) }
     else                                                   { return "Unsupported JSON format: must be a dictionary or array of dictionaries." }
     
     let swiftStruct = SwiftStruct.create(from: jsonSchema)
