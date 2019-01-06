@@ -93,7 +93,7 @@ fileprivate extension SwiftStruct {
     
     private func toLinesOfCode(at indentation: Indentation) -> [LineOfCode] {
         return indentation.apply(
-            toFirstLine: "struct \(name): CreatableFromJSON { // TODO: Rename this struct",
+            toFirstLine: "struct \(name): CreatableFromJSON {",
             nestedLines:      linesOfCodeForMembers(at:),
             andLastLine: "}")
     }

@@ -8,7 +8,7 @@ It takes care of the boring error-prone grunt work of consuming JSON data in you
 
 Feel free to modify the code it creates for you.
 
-Written and unit tested in Swift 3.
+Written and unit tested in Swift 4.2.
 
 ## Features
 
@@ -76,6 +76,13 @@ json2swift /path/to/some/directory/
 ```
 When the tool generates only one Swift file, it includes utility methods that are used for JSON processing in that file. When generating multiple Swift files the utility methods are placed in `JSONUtilities.swift`.
 
+It is possible to pass a 2nd argument to set the root struct name:
+```
+json2swift /path/to/some/data_file.json app-data
+```
+
+The generated struct will then be named `AppData` instead of the default `RootType`.
+
 The source code download includes an `example` directory with a `club_sample.json` file so that you can test it out.
 
 For more info to help get started, check out [Generating Models from JSON with json2swift](https://littlebitesofcocoa.com/283-generating-models-from-json-with-json2swift) by [Jake Marsh](https://github.com/jakemarsh).
@@ -127,7 +134,7 @@ For example, suppose `json2swift` analyzes this JSON:
 ```
 What should be the data types of the `nickname` and `quantity` properties? If this tool only inspected the first element in the array, as other JSON-to-Swift converters do, it would arrive at the wrong answer of `String` and `Int`, respectively. Here is the output of `json2swift` which uses the correct data types for both properties:
 ```swift
-struct RootType: CreatableFromJSON { // TODO: Rename this struct
+struct RootType: CreatableFromJSON {
     let nickname: String?
     let quantity: Double
     init(nickname: String?, quantity: Double) {

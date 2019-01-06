@@ -23,7 +23,7 @@ internal extension SwiftStruct {
     }
     
     private static func createNestedStructs(forElementsIn jsonElementSchema: JSONElementSchema) -> [SwiftStruct] {
-        return jsonElementSchema.attributes.values.flatMap(SwiftStruct.tryToCreate(fromJSONType:))
+        return jsonElementSchema.attributes.values.compactMap(SwiftStruct.tryToCreate(fromJSONType:))
     }
     
     private static func tryToCreate(fromJSONType jsonType: JSONType) -> SwiftStruct? {

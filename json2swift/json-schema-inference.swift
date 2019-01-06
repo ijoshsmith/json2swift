@@ -120,7 +120,7 @@ fileprivate extension String {
     private static func extractDateFormat(from string: String) -> String? {
         guard let prefixRange = string.range(of: dateFormatPrefix) else { return nil }
         guard prefixRange.lowerBound == string.startIndex else { return nil }
-        return string.substring(from: prefixRange.upperBound)
+        return String(string[prefixRange.upperBound...])
     }
     
     var isWebAddress: Bool {
@@ -131,6 +131,6 @@ fileprivate extension String {
 
 // MARK: - NSValue extension
 fileprivate extension NSValue {
-    var isBoolType:  Bool { return CFNumberGetType(self as! CFNumber) == CFNumberType.charType }
-    var isFloatType: Bool { return CFNumberIsFloatType(self as! CFNumber) }
+    var isBoolType:  Bool { return CFNumberGetType((self as! CFNumber)) == CFNumberType.charType }
+    var isFloatType: Bool { return CFNumberIsFloatType((self as! CFNumber)) }
 }
